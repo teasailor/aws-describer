@@ -1,38 +1,42 @@
 package pikalova.aws.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.DescribeVolumesResult;
 
+import pikalova.aws.client.Ec2Client;
+import pikalova.aws.domain.CloudInstance;
 
+@RestController
+@RequestMapping("cloud")
 public class CloudController {
 
-	private AmazonEC2 amazonEc2Client;
+	private Ec2Client ec2Client;
 
 	@Autowired
-	CloudController(AmazonEC2 amazonEc2Client) {
-		this.amazonEc2Client = amazonEc2Client;
+	CloudController(Ec2Client ec2Client) {
+		this.ec2Client = ec2Client;
 	}
 
 	@GetMapping("/instances")
-	public DescribeInstancesResult getInstances() {
-		return amazonEc2Client.describeInstances();
+	public List<CloudInstance> getInstances() {
+		return ec2Client.loadInstancesInfo();
 	}
 
 	@GetMapping("/securityGroups")
 	public DescribeSecurityGroupsResult getSecurityGroups() {
-		return amazonEc2Client.describeSecurityGroups();
+		return ec2Client.loadSecurityGroups();
 	}
 
 	@GetMapping("/volumes")
 	public DescribeVolumesResult getVolumes() {
-		return amazonEc2Client.describeVolumes();
+		return ec2Client.loadVolumes();
 	}
 
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.ec2.AmazonEC2;
+import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
+import com.amazonaws.services.ec2.model.DescribeVolumesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 
 import pikalova.aws.domain.CloudInstance;
@@ -31,5 +33,13 @@ public class Ec2Client {
 				.flatMap(instances -> instances.stream())
 				.map(cloudInstanceMapper::map)
 				.collect(toList());
+	}
+
+	public DescribeSecurityGroupsResult loadSecurityGroups() {
+		return amazonEC2.describeSecurityGroups();
+	}
+
+	public DescribeVolumesResult loadVolumes() {
+		return amazonEC2.describeVolumes();
 	}
 }
