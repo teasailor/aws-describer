@@ -1,19 +1,54 @@
-package pikalova.aws.domain;
+package pikalova.aws.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
-
 @NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode
 @Data
-@Builder
-public class CloudInstance {
+@Entity
+@Table(name = "INSTANCE")
+public class CloudInstanceEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	/**
+	 * <p>
+	 * The current state of the instance.
+	 * </p>
+	 */
+	private String instanceState;
+
+	/**
+	 * <p>
+	 * The monitoring state for the instance.
+	 * </p>
+	 */
+	private String monitoringState;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SecurityGroupsEntity> securityGroups = new ArrayList<>();
+
+	/**
+	 * <p>
+	 * Any block device mapping entries for the instance.
+	 * </p>
+	 */
+	//TODO: private com.amazonaws.internal.SdkInternalList<InstanceBlockDeviceMapping> blockDeviceMappings;
 
 	/**
 	 * <p>
@@ -57,12 +92,6 @@ public class CloudInstance {
 	 * </p>
 	 */
 	private java.util.Date launchTime;
-	/**
-	 * <p>
-	 * The monitoring state for the instance.
-	 * </p>
-	 */
-	private String monitoringState;
 	/**
 	 * <p>
 	 * The value is <code>Windows</code> for Windows instances; otherwise blank.
@@ -109,12 +138,6 @@ public class CloudInstance {
 	private String ramdiskId;
 	/**
 	 * <p>
-	 * The current state of the instance.
-	 * </p>
-	 */
-	private InstanceState state;
-	/**
-	 * <p>
 	 * The reason for the most recent state transition. This might be an empty string.
 	 * </p>
 	 */
@@ -139,18 +162,6 @@ public class CloudInstance {
 	private String architecture;
 	/**
 	 * <p>
-	 * Any block device mapping entries for the instance.
-	 * </p>
-	 */
-	private com.amazonaws.internal.SdkInternalList<InstanceBlockDeviceMapping> blockDeviceMappings;
-	/**
-	 * <p>
-	 * The idempotency token you provided when you launched the instance, if applicable.
-	 * </p>
-	 */
-	private String clientToken;
-	/**
-	 * <p>
 	 * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
 	 * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
 	 * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
@@ -172,13 +183,6 @@ public class CloudInstance {
 
 	/**
 	 * <p>
-	 * Indicates whether this is a Spot instance or a Scheduled Instance.
-	 * </p>
-	 */
-	private String instanceLifecycle;
-
-	/**
-	 * <p>
 	 * The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
 	 * </p>
 	 */
@@ -191,12 +195,6 @@ public class CloudInstance {
 	private String rootDeviceType;
 	/**
 	 * <p>
-	 * One or more security groups for the instance.
-	 * </p>
-	 */
-	private List<SecurityGroup> securityGroups;
-	/**
-	 * <p>
 	 * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
 	 * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
 	 * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
@@ -206,18 +204,6 @@ public class CloudInstance {
 	 * </p>
 	 */
 	private Boolean sourceDestCheck;
-	/**
-	 * <p>
-	 * If the request is a Spot instance request, the ID of the request.
-	 * </p>
-	 */
-	private String spotInstanceRequestId;
-	/**
-	 * <p>
-	 * Specifies whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.
-	 * </p>
-	 */
-	private String sriovNetSupport;
 	/**
 	 * <p>
 	 * The virtualization type of the instance.

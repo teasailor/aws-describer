@@ -2,7 +2,24 @@
 server.port: 9999
 
 # Application name
-app.name: AWSC
+app.name: AWS Cloud Describer
 
-
-
+# Data Base
+spring.datasource:
+  url: jdbc:h2:file:/DevEnv/Data/awsBase
+  driverClassName: org.h2.Driver
+  username: admin
+  password: password
+initialization-mode: always
+spring.jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+  open-in-view: false
+  hibernate:
+    ddl-auto: create
+    dialect: org.hibernate.dialect.H2Dialect
+    naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+spring.h2:
+  console.enabled: true
+  console.path: /h2-console
+  console.settings.trace: false
+  console.settings.web-allow-others: false

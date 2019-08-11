@@ -2,19 +2,18 @@ package pikalova.aws.client;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.ec2.AmazonEC2;
-import com.amazonaws.services.ec2.model.DescribeSecurityGroupsResult;
 import com.amazonaws.services.ec2.model.DescribeVolumesResult;
 import com.amazonaws.services.ec2.model.Reservation;
 
 import pikalova.aws.domain.CloudInstance;
+import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.mapping.CloudInstanceMapper;
+import pikalova.aws.mapping.SecurityGroupMapper;
 
 public class Ec2Client {
 
@@ -22,6 +21,8 @@ public class Ec2Client {
 
 	@Autowired
 	private CloudInstanceMapper cloudInstanceMapper;
+	@Autowired
+	private SecurityGroupMapper securityGroupMapper;
 
 	Ec2Client(AmazonEC2 amazonEC2) {
 		this.amazonEC2 = amazonEC2;
@@ -35,8 +36,8 @@ public class Ec2Client {
 				.collect(toList());
 	}
 
-	public DescribeSecurityGroupsResult loadSecurityGroups() {
-		return amazonEC2.describeSecurityGroups();
+	public List<SecurityGroup> loadSecurityGroups() {
+		return securityGroupMapper.mapToDomain(amazonEC2.describeSecurityGroups().getSecurityGroups());
 	}
 
 	public DescribeVolumesResult loadVolumes() {
