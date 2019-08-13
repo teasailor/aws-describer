@@ -3,6 +3,7 @@ package pikalova.aws.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,18 +26,33 @@ public class SecurityGroupsEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	//	@ManyToMany(fetch = FetchType.LAZY,
+	//			cascade = {
+	//					CascadeType.PERSIST,
+	//					CascadeType.MERGE
+	//			},
+	//			mappedBy = "securityGroups")
+	//	private List<CloudInstanceEntity> instances;
+
 	/**
 	 * <p>
-	 * A description of the security group.
+	 * The AWS business ID of the security group.
 	 * </p>
 	 */
-	private String description;
+	@Column(unique = true, nullable = false)
+	private String groupId;
 	/**
 	 * <p>
 	 * The name of the security group.
 	 * </p>
 	 */
 	private String groupName;
+	/**
+	 * <p>
+	 * A description of the security group.
+	 * </p>
+	 */
+	private String description;
 	/**
 	 * <p>
 	 * One or more inbound rules associated with the security group.
@@ -57,12 +73,6 @@ public class SecurityGroupsEntity {
 	 * </p>
 	 */
 	private String ownerId;
-	/**
-	 * <p>
-	 * The ID of the security group.
-	 * </p>
-	 */
-	private String groupId;
 	/**
 	 * <p>
 	 * [EC2-VPC] The ID of the VPC for the security group.

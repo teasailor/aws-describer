@@ -8,30 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pikalova.aws.domain.CloudInstance;
-import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.service.CloudInstanceService;
-import pikalova.aws.service.SecurityGroupService;
 
 @RestController
-@RequestMapping("cloud/refresh/")
+@RequestMapping("refresh/cloud/")
 public class RefreshInstanceDescriptionController {
 
 	private CloudInstanceService cloudInstanceService;
-	private SecurityGroupService securityGroupService;
 
 	@Autowired
-	RefreshInstanceDescriptionController(CloudInstanceService cloudInstanceService, SecurityGroupService securityGroupService) {
+	RefreshInstanceDescriptionController(CloudInstanceService cloudInstanceService) {
 		this.cloudInstanceService = cloudInstanceService;
-		this.securityGroupService = securityGroupService;
 	}
 
 	@GetMapping("instances")
 	public List<CloudInstance> refreshInstances() {
-		return cloudInstanceService.collect();
+		return cloudInstanceService.store(cloudInstanceService.collect());
 	}
 
-	@GetMapping("securityGroup")
-	public List<SecurityGroup> refreshSecurityGroups() {
-		return securityGroupService.collect();
-	}
 }
