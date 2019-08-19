@@ -1,4 +1,4 @@
-package pikalova.aws.service;
+package pikalova.aws.entity.manager;
 
 import static org.springframework.util.CollectionUtils.isEmpty;
 
@@ -14,6 +14,7 @@ import pikalova.aws.repository.SecurityGroupRepository;
 
 @Service
 class SecurityGroupEntityManager {
+
 	private SecurityGroupRepository securityGroupRepository;
 	private SecurityGroupMapper securityGroupMapper;
 

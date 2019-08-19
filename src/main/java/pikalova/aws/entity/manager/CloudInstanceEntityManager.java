@@ -1,16 +1,16 @@
-package pikalova.aws.service;
+package pikalova.aws.entity.manager;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.entity.CloudInstanceEntity;
 import pikalova.aws.entity.SecurityGroupsEntity;
 import pikalova.aws.repository.CloudInstanceRepository;
 
-@Service
-class CloudInstanceEntityManager {
+@Component
+public class CloudInstanceEntityManager {
 
 	private final SecurityGroupEntityManager securityGroupEntityManager;
 	private final CloudInstanceRepository cloudInstanceRepository;
@@ -20,7 +20,7 @@ class CloudInstanceEntityManager {
 		this.cloudInstanceRepository = cloudInstanceRepository;
 	}
 
-	List<CloudInstanceEntity> storeInstanceEntity(List<SecurityGroup> securityGroups, List<CloudInstanceEntity> instanceEntities) {
+	public List<CloudInstanceEntity> storeInstanceEntity(List<SecurityGroup> securityGroups, List<CloudInstanceEntity> instanceEntities) {
 		List<SecurityGroupsEntity> securityGroupEntities = securityGroupEntityManager.storeSecurityGroups(securityGroups);
 		replaceSecurityGroups(instanceEntities, securityGroupEntities);
 		return cloudInstanceRepository.saveAll(instanceEntities);
@@ -37,6 +37,5 @@ class CloudInstanceEntityManager {
 				instanceSecurityGroups.set(i, describedGroup);
 			}
 		});
-		System.out.println("cloudInstances = " + cloudInstances);
 	}
 }

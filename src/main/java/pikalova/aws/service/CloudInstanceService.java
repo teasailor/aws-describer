@@ -10,6 +10,7 @@ import pikalova.aws.client.Ec2Client;
 import pikalova.aws.domain.CloudInstance;
 import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.entity.CloudInstanceEntity;
+import pikalova.aws.entity.manager.CloudInstanceEntityManager;
 import pikalova.aws.mapping.CloudInstanceMapper;
 
 @Service

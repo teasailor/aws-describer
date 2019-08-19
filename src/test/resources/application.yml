@@ -1,0 +1,3 @@
+pikalova.aws:
+  scheduler:
+    update.instance.description.job: "-"
