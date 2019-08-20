@@ -23,7 +23,7 @@ public class RefreshInstanceDescriptionController {
 
 	@GetMapping("instances")
 	public List<CloudInstance> refreshInstances() {
-		return cloudInstanceService.store(cloudInstanceService.collect());
+		return cloudInstanceService.refresh();
 	}
 
 }

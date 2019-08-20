@@ -5,25 +5,25 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.entity.SecurityGroupsEntity;
 import pikalova.aws.mapping.SecurityGroupMapper;
 import pikalova.aws.repository.SecurityGroupRepository;
 
-@Service
+@Component
 class SecurityGroupEntityManager {
 
-	private SecurityGroupRepository securityGroupRepository;
-	private SecurityGroupMapper securityGroupMapper;
+	private final SecurityGroupRepository securityGroupRepository;
+	private final SecurityGroupMapper securityGroupMapper;
 
 	SecurityGroupEntityManager(SecurityGroupRepository securityGroupRepository, SecurityGroupMapper securityGroupMapper) {
 		this.securityGroupRepository = securityGroupRepository;
 		this.securityGroupMapper = securityGroupMapper;
 	}
 
-	List<SecurityGroupsEntity> storeSecurityGroups(List<SecurityGroup> securityGroups) {
+	List<SecurityGroupsEntity> store(List<SecurityGroup> securityGroups) {
 		List<SecurityGroupsEntity> freshGroups = securityGroupMapper.mapToEntities(securityGroups.stream().distinct().collect(Collectors.toList()));
 		List<SecurityGroupsEntity> groupsToUpdate = securityGroupRepository.findByGroupIdIn(freshGroups.stream().map(SecurityGroupsEntity::getGroupId).collect(Collectors.toList()));
 		mergeExistingAndFreshData(freshGroups, groupsToUpdate);

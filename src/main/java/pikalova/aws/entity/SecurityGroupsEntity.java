@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,27 +20,20 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Data
 @Entity
-@Table(name = "SECURITY_GROUP")
+@Table(name = "SECURITY_GROUP",
+		indexes = { @Index(name = "I__GROUP_ID", columnList = "groupId", unique = true) })
 public class SecurityGroupsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//	@ManyToMany(fetch = FetchType.LAZY,
-	//			cascade = {
-	//					CascadeType.PERSIST,
-	//					CascadeType.MERGE
-	//			},
-	//			mappedBy = "securityGroups")
-	//	private List<CloudInstanceEntity> instances;
-
 	/**
 	 * <p>
 	 * The AWS business ID of the security group.
 	 * </p>
 	 */
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String groupId;
 	/**
 	 * <p>

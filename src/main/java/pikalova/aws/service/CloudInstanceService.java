@@ -8,13 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pikalova.aws.client.Ec2Client;
 import pikalova.aws.domain.CloudInstance;
-import pikalova.aws.domain.SecurityGroup;
 import pikalova.aws.entity.CloudInstanceEntity;
 import pikalova.aws.entity.manager.CloudInstanceEntityManager;
 import pikalova.aws.mapping.CloudInstanceMapper;
 
 @Service
 public class CloudInstanceService {
+
 	private Ec2Client ec2Client;
 	private CloudInstanceMapper cloudInstanceMapper;
 	private CloudInstanceEntityManager cloudInstanceEntityManager;
@@ -33,9 +33,13 @@ public class CloudInstanceService {
 
 	@Transactional
 	public List<CloudInstance> store(List<CloudInstance> cloudInstances) {
-		List<SecurityGroup> securityGroups = ec2Client.loadSecurityGroups();
 		List<CloudInstanceEntity> instanceEntities = cloudInstanceMapper.mapToEntities(cloudInstances);
-		return cloudInstanceMapper.map(cloudInstanceEntityManager.storeInstanceEntity(securityGroups, instanceEntities));
+		return cloudInstanceMapper.map(cloudInstanceEntityManager.storeInstanceEntity(instanceEntities, ec2Client.loadSecurityGroups(), ec2Client.loadVolumes()));
 	}
 
+	@Transactional
+	public List<CloudInstance> refresh() {
+		cloudInstanceEntityManager.clean();
+		return store(collect());
+	}
 }

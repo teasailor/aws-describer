@@ -1,6 +1,7 @@
 package pikalova.aws.controller;
 
 import static org.hamcrest.Matchers.contains;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.MOCK;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,7 +20,7 @@ import pikalova.aws.AwsClientApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-		webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+		webEnvironment = MOCK,
 		classes = AwsClientApplication.class)
 @AutoConfigureMockMvc
 public class RefreshInstanceDescriptionControllerIntegrationTest {

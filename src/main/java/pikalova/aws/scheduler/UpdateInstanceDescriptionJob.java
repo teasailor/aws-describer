@@ -21,8 +21,8 @@ public class UpdateInstanceDescriptionJob {
 
 	@Scheduled(cron = "${pikalova.aws.scheduler.update.instance.description.job}")
 	public void run() {
-		log.debug("Scheduled job {} is started at {}", UpdateInstanceDescriptionJob.class, now());
-		cloudInstanceService.store(cloudInstanceService.collect());
+		log.info("Scheduled job {} is started at {}", UpdateInstanceDescriptionJob.class, now());
+		cloudInstanceService.refresh();
 		log.debug("Scheduled job {} is finished at {}", UpdateInstanceDescriptionJob.class, now());
 	}
 }

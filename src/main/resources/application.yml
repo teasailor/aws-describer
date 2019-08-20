@@ -6,7 +6,7 @@ app.name: AWS Cloud Describer
 
 pikalova.aws:
   scheduler:
-    update.instance.description.job: 0/10 * * ? * *
+    update.instance.description.job: 0/30 * * ? * *
 
 # Data Base
 spring.datasource:

@@ -11,11 +11,12 @@ import com.amazonaws.services.ec2.model.Instance;
 import pikalova.aws.domain.CloudInstance;
 import pikalova.aws.entity.CloudInstanceEntity;
 
-@Mapper
+@Mapper(uses = { VolumeMapper.class, SecurityGroupMapper.class })
 public interface CloudInstanceMapper {
 
 	@Mapping(source = "monitoring.state", target = "monitoringState")
-	CloudInstance map(Instance instances);
+	@Mapping(source = "blockDeviceMappings", target = "volumes")
+	CloudInstance mapToDomain(Instance instances);
 
 	List<CloudInstanceEntity> mapToEntities(List<CloudInstance> cloudInstances);
 

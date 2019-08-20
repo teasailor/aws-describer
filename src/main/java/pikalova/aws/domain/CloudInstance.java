@@ -7,14 +7,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.amazonaws.services.ec2.model.InstanceBlockDeviceMapping;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class CloudInstance {
-
+	/**
+	 * <p>
+	 * One or more security groups for the instance.
+	 * </p>
+	 */
+	private List<SecurityGroup> securityGroups;
+	/**
+	 * <p>
+	 * Any volumes for the instance.
+	 * </p>
+	 */
+	private List<Volume> volumes;
 	/**
 	 * <p>
 	 * The AMI launch index, which can be used to find this instance in the launch group.
@@ -139,12 +148,6 @@ public class CloudInstance {
 	private String architecture;
 	/**
 	 * <p>
-	 * Any block device mapping entries for the instance.
-	 * </p>
-	 */
-	private com.amazonaws.internal.SdkInternalList<InstanceBlockDeviceMapping> blockDeviceMappings;
-	/**
-	 * <p>
 	 * The idempotency token you provided when you launched the instance, if applicable.
 	 * </p>
 	 */
@@ -189,12 +192,6 @@ public class CloudInstance {
 	 * </p>
 	 */
 	private String rootDeviceType;
-	/**
-	 * <p>
-	 * One or more security groups for the instance.
-	 * </p>
-	 */
-	private List<SecurityGroup> securityGroups;
 	/**
 	 * <p>
 	 * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether

@@ -1,9 +1,11 @@
 package pikalova.aws.entity;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,22 +46,25 @@ public class CloudInstanceEntity {
 	private String monitoringState;
 
 	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-					CascadeType.PERSIST,
-					CascadeType.MERGE
-			})
+			cascade = { PERSIST, MERGE })
 	@JoinTable(name = "INSTANCE_SECURITY_GROUPS",
 			joinColumns = { @JoinColumn(name = "INSTANCE_ID") },
 			inverseJoinColumns = { @JoinColumn(name = "SECURITY_GROUP_ID") })
 	private List<SecurityGroupsEntity> securityGroups = new ArrayList<>();
 
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = { PERSIST, MERGE })
+	@JoinTable(name = "INSTANCE_VOLUMES",
+			joinColumns = { @JoinColumn(name = "INSTANCE_ID") },
+			inverseJoinColumns = { @JoinColumn(name = "VOLUME_ID") })
+	private List<VolumeEntity> volumes;
+
 	/**
 	 * <p>
-	 * Any block device mapping entries for the instance.
+	 * The idempotency token you provided when you launched the instance, if applicable.
 	 * </p>
 	 */
-	//TODO: private com.amazonaws.internal.SdkInternalList<InstanceBlockDeviceMapping> blockDeviceMappings;
-
+	private String clientToken;
 	/**
 	 * <p>
 	 * The AMI launch index, which can be used to find this instance in the launch group.

@@ -25,7 +25,7 @@ public class CloudInstanceMapperTest {
 	public void testMapMonitoringStateToDomain() {
 		final String state = "Good test";
 
-		CloudInstance result = tested.map(new Instance().withMonitoring(new Monitoring().withState(state)));
+		CloudInstance result = tested.mapToDomain(new Instance().withMonitoring(new Monitoring().withState(state)));
 
 		assertThat(result.getMonitoringState(), is(state));
 	}
@@ -34,7 +34,7 @@ public class CloudInstanceMapperTest {
 	public void testMapSecurityGroupsToDomain() {
 		final String groupId = "Good test";
 
-		CloudInstance result = tested.map(new Instance().withSecurityGroups(new GroupIdentifier().withGroupId(groupId)));
+		CloudInstance result = tested.mapToDomain(new Instance().withSecurityGroups(new GroupIdentifier().withGroupId(groupId)));
 
 		assertThat(result.getSecurityGroups().get(0).getGroupId(), is(groupId));
 	}
