@@ -27,19 +27,16 @@ public class CloudInstanceService {
 		this.cloudInstanceEntityManager = cloudInstanceEntityManager;
 	}
 
-	public List<CloudInstance> collect() {
-		return ec2Client.loadInstancesInfo();
-	}
-
 	@Transactional
 	public List<CloudInstance> store(List<CloudInstance> cloudInstances) {
 		List<CloudInstanceEntity> instanceEntities = cloudInstanceMapper.mapToEntities(cloudInstances);
 		return cloudInstanceMapper.map(cloudInstanceEntityManager.storeInstanceEntity(instanceEntities, ec2Client.loadSecurityGroups(), ec2Client.loadVolumes()));
 	}
 
+	// TODO: performance question
 	@Transactional
 	public List<CloudInstance> refresh() {
 		cloudInstanceEntityManager.clean();
-		return store(collect());
+		return store(ec2Client.loadInstancesInfo());
 	}
 }

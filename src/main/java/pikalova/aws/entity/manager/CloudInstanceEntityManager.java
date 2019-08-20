@@ -19,8 +19,8 @@ import pikalova.aws.repository.CloudInstanceRepository;
 @Component
 public class CloudInstanceEntityManager {
 
-	private final SecurityGroupEntityManager securityGroupEntityManager;
 	private final CloudInstanceRepository cloudInstanceRepository;
+	private final SecurityGroupEntityManager securityGroupEntityManager;
 	private final VolumeEntityManager volumeEntityManager;
 
 	CloudInstanceEntityManager(SecurityGroupEntityManager securityGroupEntityManager, CloudInstanceRepository cloudInstanceRepository,
@@ -30,6 +30,7 @@ public class CloudInstanceEntityManager {
 		this.volumeEntityManager = volumeEntityManager;
 	}
 
+	// TODO: lock before update
 	public List<CloudInstanceEntity> storeInstanceEntity(List<CloudInstanceEntity> instanceEntities, List<SecurityGroup> securityGroups, List<Volume> volumes) {
 		if (!isEmpty(securityGroups)) {
 			List<SecurityGroupsEntity> securityGroupEntities = securityGroupEntityManager.store(securityGroups);

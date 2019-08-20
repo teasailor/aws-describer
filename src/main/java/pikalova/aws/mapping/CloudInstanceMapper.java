@@ -11,7 +11,7 @@ import com.amazonaws.services.ec2.model.Instance;
 import pikalova.aws.domain.CloudInstance;
 import pikalova.aws.entity.CloudInstanceEntity;
 
-@Mapper(uses = { VolumeMapper.class, SecurityGroupMapper.class })
+@Mapper(uses = { VolumeMapper.class })
 public interface CloudInstanceMapper {
 
 	@Mapping(source = "monitoring.state", target = "monitoringState")
