@@ -6,6 +6,7 @@ import static javax.persistence.CascadeType.PERSIST;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,13 @@ public class CloudInstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	/**
+	 * <p>
+	 * The ID of the instance.
+	 * </p>
+	 */
+	@Column(nullable = false)
+	private String instanceId;
 	/**
 	 * <p>
 	 * The current state of the instance.
@@ -77,12 +84,6 @@ public class CloudInstanceEntity {
 	 * </p>
 	 */
 	private String imageId;
-	/**
-	 * <p>
-	 * The ID of the instance.
-	 * </p>
-	 */
-	private String instanceId;
 	/**
 	 * <p>
 	 * The instance type.

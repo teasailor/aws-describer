@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.amazonaws.services.ec2.model.GroupIdentifier;
 import com.amazonaws.services.ec2.model.Instance;
@@ -21,7 +21,7 @@ import pikalova.aws.domain.CloudInstance;
 import pikalova.aws.domain.InstanceState;
 import pikalova.aws.entity.CloudInstanceEntity;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class CloudInstanceMapperTest {
 
 	@Mock
