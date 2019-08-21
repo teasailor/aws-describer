@@ -21,11 +21,13 @@ Isn’t it needed to have public API/UI to see collected information?
 ## Open questions
 1. Authorization and authentication
 2. Security (hide credentials, mask sensitive data from logs...)
-3. Performance improvements
+3. Performance improvements (load description by pages)
 4. Thread-safe operations (lock resources)
 5. Logging system
 6. Tracing and monitoring
 7. Who are clients? (change API, create view models)
+   7. Provide possibility to search for unlinked security groups
+   7. Add instance relation to security group
 8. Documentation of API (swagger)
 9. Code analysis
 10. Refreshable configs (config server)
