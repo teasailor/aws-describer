@@ -19,14 +19,20 @@ Isn’t it needed to have public API/UI to see collected information?
 > please make it verifiable. API/UI is your choice (please explain the decision taken)  
 
 ## Open questions
-
 1. Authorization and authentication
 2. Security (hide credentials, mask sensitive data from logs...)
 3. Performance improvements
 4. Thread-safe operations (lock resources)
 5. Logging system
 6. Tracing and monitoring
-4. Who are clients? Change API?
-4. Documentation of API (swagger)
-5. Code analysis
-1. To AWS specialist: does AWS provide a way to subscribe on an update?
+7. Who are clients? (change API, create view models)
+8. Documentation of API (swagger)
+9. Code analysis
+10. Refreshable configs (config server)
+11. To AWS specialist: does AWS provide a way to subscribe on an update?
+12. CI/CD (versioning, docker...)
+
+### TODO
+* Review and clean up business model and entities
+* Unit testing coverage
+* Integration test with AWS API mock
