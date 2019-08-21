@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pikalova.task</groupId>
-	<artifactId>aws-client</artifactId>
+	<artifactId>aws-describer</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>AWS EC2 analyzer</name>
 	<packaging>jar</packaging>

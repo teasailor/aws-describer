@@ -1,5 +1,5 @@
-# aws-analizer
-AWS client collects and stores data in own DB
+# AWS describer
+AWS client collects and stores data in own DB.
 
 ## Business requirements
 Prepare a Spring Boot application, which would:
