@@ -30,6 +30,7 @@ Isn’t it needed to have public API/UI to see collected information?
 
 
 ### TODO
+* In case of big amount of data it's better to use API with Pageable response
 * Review and clean up business model and entities
 * Unit testing coverage
 * Integration test with AWS API mock
